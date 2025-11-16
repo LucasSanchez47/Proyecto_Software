@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $usuarioValido = $usuarioModel->Login($usuario);
 
-        if ($usuarioValido) {
+        if ($usuarioValido != null) {
             $_SESSION['idUsuario'] = $usuarioValido->getidusuario();
             $_SESSION['nombre'] = $usuarioValido->getnombre();
             $_SESSION['idCargo'] = $usuarioValido->getidcargo();

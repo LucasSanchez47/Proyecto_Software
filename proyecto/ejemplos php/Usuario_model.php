@@ -2,7 +2,7 @@
 include_once("Conexion.php");
 include_once("Usuario.php");
 include_once("Cargo.php");
-include_once("Cargo.model.php");
+include_once("Cargo_model.php");
 
 
 class UsuarioModel {

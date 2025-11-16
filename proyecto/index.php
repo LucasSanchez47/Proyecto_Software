@@ -1,8 +1,8 @@
 <?php
 session_start();
-require_once 'ejemplos php/Conexion.php';
-require_once 'ejemplos php/Usuario.php';
-require_once 'ejemplos php/Usuario_model.php';
+require_once 'php/Conexion.php';
+require_once 'php/Usuario.php';
+require_once 'php/Usuario_model.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,7 +30,7 @@ require_once 'ejemplos php/Usuario_model.php';
                     <li><a href="logout.php">Salir</a></li>
                 <?php else: ?>
                     <li><a href="php/Login.php">Iniciar Sesión</a></li>
-                    <li><a href="ejemplo php/Registro.php">Registrarse</a></li>
+                    <li><a href="php/Registro.php">Registrarse</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

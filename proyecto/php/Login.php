@@ -22,17 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['nombre'] = $usuarioValido->getnombre();
             $_SESSION['idCargo'] = $usuarioValido->getidcargo();
 
-            // SEGUN EL CARGO QUE OCUPA
-            switch ($_SESSION['idCargo']) {
-                case 1:
-                    header("Location: Administrador.php");
-                    break;
-                case 2:
-                    header("Location: Cliente.php");
-                    break;
-                default:
-                    header("Location: UsuarioGUI.php");
-            }
+            header("Location: ../index.php");
             exit();
         } else {
             $error = "Correo o clave incorrectos.";

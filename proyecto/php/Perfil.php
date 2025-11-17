@@ -3,7 +3,7 @@
 <?php
 session_start();
 require_once 'Usuario.php';
-require_once 'Usuario.model.php';
+require_once 'Usuario_model.php';
 
 if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 2) {
     header('Location: Login.php');
@@ -80,46 +80,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Mi Perfil</title>
-    <link rel="stylesheet" href="Css/Perfil.css">
+    <link rel="stylesheet" href="../Css/Perfil.css">
 </head>
 <body>
-    <h1>Mi Perfil - Cliente</h1>
+    <div class="perfil-container">
 
-    <?php if ($mensaje): ?>
-        <p style="color:<?= strpos($mensaje, 'Error') !== false ? 'red' : 'green'; ?>">
-            <?= htmlspecialchars($mensaje); ?>
-        </p>
-    <?php endif; ?>
+        <h1>Mi Perfil</h1>
 
-    <form method="post" action="Perfil.php" enctype="multipart/form-data">
-        <label>Nombre:</label><br>
-        <input type="text" name="nombre" required value="<?= htmlspecialchars($usuario->getnombre()); ?>"><br>
-
-        <label>Apellido:</label><br>
-        <input type="text" name="apellido" required value="<?= htmlspecialchars($usuario->getapellido()); ?>"><br>
-
-        <label>Dirección:</label><br>
-        <input type="text" name="direccion" required value="<?= htmlspecialchars($usuario->getdireccion()); ?>"><br>
-
-        <label>Correo:</label><br>
-        <input type="email" name="correo" required value="<?= htmlspecialchars($usuario->getcorreo()); ?>"><br>
-
-        <label>Contraseña (dejar vacío para no cambiar):</label><br>
-        <input type="password" name="clave"><br>
-
-        <label>Foto de perfil:</label><br>
-        <?php if ($usuario->getfotoPerfil()): ?>
-            <img src="<?= UPLOAD_DIR . htmlspecialchars($usuario->getfotoPerfil()); ?>" alt="Foto de perfil" width="120"><br>
+        <?php if ($mensaje): ?>
+            <p class="mensaje <?= strpos($mensaje, 'Error') !== false ? 'error' : 'success'; ?>">
+                <?= htmlspecialchars($mensaje); ?>
+            </p>
         <?php endif; ?>
-        <input type="file" name="foto" accept=".jpg,.jpeg,.png,.gif"><br><br>
 
-        <button type="submit">Actualizar</button>
-    </form>
+        <div class="foto-area">
+            <?php if ($usuario->getfotoPerfil()): ?>
+                <img class="foto-perfil" src="<?= UPLOAD_DIR . htmlspecialchars($usuario->getfotoPerfil()); ?>">
+            <?php else: ?>
+                <div class="foto-placeholder"></div>
+            <?php endif; ?>
+        </div>
 
-    <br>
-    <a href="Cliente.php">← Volver al panel</a> |
-    <a href="Cerrar_Sesion.php">Cerrar sesión</a>
+        <form method="post" enctype="multipart/form-data">
+
+            <div class="fila">
+                <div class="campo">
+                    <label>Nombre</label>
+                    <input type="text" name="nombre" value="<?= htmlspecialchars($usuario->getnombre()); ?>">
+                </div>
+
+                <div class="campo">
+                    <label>Apellido</label>
+                    <input type="text" name="apellido" value="<?= htmlspecialchars($usuario->getapellido()); ?>">
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label>Dirección</label>
+                    <input type="text" name="direccion" value="<?= htmlspecialchars($usuario->getdireccion()); ?>">
+                </div>
+
+                <div class="campo">
+                    <label>Correo</label>
+                    <input type="email" name="correo" value="<?= htmlspecialchars($usuario->getcorreo()); ?>">
+                </div>
+            </div>
+
+            <div class="campo">
+                <label>Contraseña (opcional)</label>
+                <input type="password" name="clave">
+            </div>
+
+            <div class="campo">
+                <label>Foto de perfil</label>
+                <input type="file" name="foto" accept=".jpg,.jpeg,.png,.gif">
+            </div>
+
+            <button class="btn-guardar" type="submit">Actualizar</button>
+        </form>
+
+        <div class="links">
+            <a href="../index.php">← Volver</a> |
+            <a href="Cerrar_Sesion.php">Cerrar sesión</a>
+        </div>
+
+    </div>
 </body>
+
 </html>
 
 

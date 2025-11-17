@@ -27,6 +27,7 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 1) {
                     <li><a href="UsuarioGUI.php"> Administracion de Usuarios </a></li>
                     <li><a href="CargoGUI.php"> Administracion de Cargos </a></li>
                     <li><a href="ProductoGUI.php"> Administracion de Productos </a></li>
+                    <li><a href="PeliculasGUI.php">Administracion de Peliculas</a></li>
                     <li><a href="Cerrar_Sesion.php">Cerrar sesión</a></li>
                 </ul>
             </nav>

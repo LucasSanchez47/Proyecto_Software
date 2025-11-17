@@ -26,8 +26,12 @@ require_once 'php/Usuario_model.php';
                 <li><a href="promociones.php">Promociones</a></li>
                 <li><a href="contacto.php">Contacto</a></li>
                 <?php if(isset($_SESSION['nombre'])): ?>
-                    <li><a href="perfil.php">👤 <?= htmlspecialchars($_SESSION['nombre']); ?></a></li>
-                    <li><a href="logout.php">Salir</a></li>
+
+                <?php if(isset($_SESSION['idCargo']) && $_SESSION['idCargo'] == 1): ?>
+                    <li><a href="php/Administrador.php">Panel Admin</a></li>
+                <?php endif; ?>
+                    <li><a href="php/perfil.php">👤 <?= htmlspecialchars($_SESSION['nombre']); ?></a></li>
+                    <li><a href="php/Cerrar_Sesion.php">Salir</a></li>
                 <?php else: ?>
                     <li><a href="php/Login.php">Iniciar Sesión</a></li>
                     <li><a href="php/Registro.php">Registrarse</a></li>

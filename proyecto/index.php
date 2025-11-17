@@ -3,6 +3,10 @@ session_start();
 require_once 'php/Conexion.php';
 require_once 'php/Usuario.php';
 require_once 'php/Usuario_model.php';
+require_once 'php/Peliculas_model.php';
+
+$modelPeliculas = new PeliculaModel();
+$estrenos = $modelPeliculas->obtenerEstrenos(3); 
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -30,7 +34,7 @@ require_once 'php/Usuario_model.php';
                 <?php if(isset($_SESSION['idCargo']) && $_SESSION['idCargo'] == 1): ?>
                     <li><a href="php/Administrador.php">Panel Admin</a></li>
                 <?php endif; ?>
-                    <li><a href="php/perfil.php">👤 <?= htmlspecialchars($_SESSION['nombre']); ?></a></li>
+                    <li><a href="php/Perfil.php">👤 <?= htmlspecialchars($_SESSION['nombre']); ?></a></li>
                     <li><a href="php/Cerrar_Sesion.php">Salir</a></li>
                 <?php else: ?>
                     <li><a href="php/Login.php">Iniciar Sesión</a></li>
@@ -53,22 +57,19 @@ require_once 'php/Usuario_model.php';
         <section class="peliculas">
             <h2>🎥 Estrenos de la Semana</h2>
             <div class="grid-peliculas">
-                <div class="pelicula">
-                    <img src="img/pelicula1.jpg" alt="Pelicula 1">
-                    <h3>La Guerra de los Sueños</h3>
-                    <p>Acción | 2h 15min</p>
-                </div>
-                <div class="pelicula">
-                    <img src="img/pelicula2.jpg" alt="Pelicula 2">
-                    <h3>El Viaje Infinito</h3>
-                    <p>Ciencia Ficción | 2h 5min</p>
-                </div>
-                <div class="pelicula">
-                    <img src="img/pelicula3.jpg" alt="Pelicula 3">
-                    <h3>Risas en Familia</h3>
-                    <p>Comedia | 1h 40min</p>
-                </div>
+                <?php foreach ($estrenos as $p): ?>
+                    <div class="pelicula">
+                        <img src="img/<?= htmlspecialchars($p->getposter()) ?>" alt="Poster">
+                        <h3><?= htmlspecialchars($p->gettitulo()) ?></h3>
+                        <p><?= htmlspecialchars($p->getgenero()) ?> | <?= htmlspecialchars($p->getduracion()) ?> min</p>
+                    </div>
+                <?php endforeach; ?>
+
+                <?php if (count($estrenos) == 0): ?>
+                    <p class="no-peliculas">No hay estrenos cargados.</p>
+                <?php endif; ?>
             </div>
+
         </section>
 
         <section class="promocion">

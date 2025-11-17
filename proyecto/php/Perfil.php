@@ -5,14 +5,15 @@ session_start();
 require_once 'Usuario.php';
 require_once 'Usuario_model.php';
 
-if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 2) {
-    header('Location: Login.php');
-    exit();
-}
-
 $usuarioModel = new UsuarioModel();
 $usuario = $usuarioModel->Obtener($_SESSION['idUsuario']);
 $mensaje = '';
+
+
+if (!isset($_SESSION['idUsuario'])) {
+    header('Location: Login.php');
+    exit();
+}
 
 // Guardar las fotos
 define('UPLOAD_DIR', 'uploads/perfiles/');

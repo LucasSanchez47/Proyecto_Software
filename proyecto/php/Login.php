@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['idUsuario'] = $usuarioValido->getidusuario();
             $_SESSION['nombre'] = $usuarioValido->getnombre();
             $_SESSION['idCargo'] = $usuarioValido->getidcargo();
-
+            $_SESSION['fotoPerfil'] = $usuarioValido->getfotoPerfil();
             header("Location: ../index.php");
             exit();
         } else {

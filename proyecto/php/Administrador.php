@@ -19,7 +19,10 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 1) {
 
         <aside class="admin-sidebar">
             <div class="admin-user">
-                <img src="Imagenes/avatar.jpg" class="avatar">
+                <img src="<?= $_SESSION['fotoPerfil'] 
+        ? 'uploads/perfiles/' . htmlspecialchars($_SESSION['fotoPerfil']) 
+        : '../img/avatar.jpg'; ?>" 
+     class="avatar">
                 <p>Bienvenido:</p>
                 <span><?= htmlspecialchars($_SESSION['nombre']); ?></span>
             </div>

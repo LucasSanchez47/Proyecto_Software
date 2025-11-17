@@ -154,7 +154,7 @@ class UsuarioModel {
                 $data->gettelefono(),
                 $data->getcorreo(),
                 $data->getidcargo(),
-                $data->getclave()   // HASHED
+                password_hash($data->getclave(), PASSWORD_DEFAULT)   // HASHED
             ]);
 
         } catch (Exception $e) {

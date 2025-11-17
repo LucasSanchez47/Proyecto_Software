@@ -75,5 +75,31 @@ class PeliculaModel {
         $stmt = $cn->prepare($sql);
         return $stmt->execute([$id]);
     }
+    public function obtenerEstrenos($limite = 3) {
+        $conexion = new Conexion();
+        $cn = $conexion->getConexion();
+
+        $sql = "SELECT * FROM peliculas ORDER BY estreno DESC LIMIT ?";
+        $stmt = $cn->prepare($sql);
+        $stmt->bindValue(1, (int)$limite, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $lista = [];
+
+        while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $p = new Pelicula();
+            $p->setidpelicula($fila["ID_peliculas"]);
+            $p->settitulo($fila["titulo"]);
+            $p->setdescripcion($fila["descripcion"]);
+            $p->setduracion($fila["duracion"]);
+            $p->setgenero($fila["genero"]);
+            $p->setposter($fila["poster"]);
+            $p->setestreno($fila["estreno"]);
+
+            $lista[] = $p;
+        }
+
+        return $lista;
+    }
 }
 ?>

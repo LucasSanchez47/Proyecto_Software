@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $usuario->setdireccion($direccion);
         $usuario->settelefono($telefono);
         $usuario->setcorreo($correo);
-        $usuario->setclave(password_hash($clave, PASSWORD_DEFAULT));
+        $usuario->setclave($clave);
 
         // Cargo 2 = Cliente
         $usuario->setidcargo(2); 

@@ -10,41 +10,43 @@ $lista = $model->listar();
 <head>
     <meta charset="UTF-8">
     <title>Administrar Películas</title>
-    <link rel="stylesheet" href="Css/Principal.css">
+    <link rel="stylesheet" href="..\CSS\Peliculas.css">
 </head>
 <body>
 
-<h1>Administrar Películas</h1>
+<div class="contenedor-peliculas">
 
-<a href="Form_peliculas.php" class="btn">+ Nueva Película</a>
+    <h1>Administración de Películas</h1>
 
-<table class="tabla">
-    <tr>
-        <th>ID</th>
-        <th>Título</th>
-        <th>Género</th>
-        <th>Duración</th>
-        <th>Poster</th>
-        <th>Acciones</th>
-    </tr>
+    <button class="btn-agregar"><a href="Form_peliculas.php">+ Nueva Película</a></button>
 
-    <?php foreach($lista as $p){ ?>
+    <table>
         <tr>
-            <td><?= $p->getidpelicula() ?></td>
-            <td><?= $p->gettitulo() ?></td>
-            <td><?= $p->getgenero() ?></td>
-            <td><?= $p->getduracion() ?> min</td>
-            <td><img src="../img/<?= $p->getposter() ?>" width="60"></td>
-            <td>
-                <a href="Form_peliculas.php?id=<?= $p->getidpelicula() ?>">Editar</a>
-                <a href="Eliminar_peliculas.php?id=<?= $p->getidpelicula() ?>"
-                   onclick="return confirm('¿Eliminar película?')">
-                   Eliminar
-                </a>
-            </td>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Género</th>
+            <th>Duración</th>
+            <th>Poster</th>
+            <th>Acciones</th>
         </tr>
-    <?php } ?>
-</table>
+
+        <?php foreach($lista as $p){ ?>
+            <tr>
+                <td><?= $p->getidpelicula() ?></td>
+                <td><?= htmlspecialchars($p->gettitulo()) ?></td>
+                <td><?= htmlspecialchars($p->getgenero()) ?></td>
+                <td><?= $p->getduracion() ?> min</td>
+                <td><img class="poster-mini" src="../img/<?= $p->getposter() ?>"></td>
+                <td>
+                    <a class="btn-editar" href="Form_peliculas.php?id=<?= $p->getidpelicula() ?>">Editar</a>
+                    <a class="btn-eliminar" href="Eliminar_peliculas.php?id=<?= $p->getidpelicula() ?>"
+                       onclick="return confirm('¿Eliminar película?')">Eliminar</a>
+                </td>
+            </tr>
+        <?php } ?>
+    </table>
+
+</div>
 
 </body>
 </html>

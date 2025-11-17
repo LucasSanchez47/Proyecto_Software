@@ -1,0 +1,96 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Fondo igual a tus otras páginas */
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+/* Contenedor central */
+.form-container {
+    background: #ffffff;
+    width: 500px;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #333;
+}
+
+/* Inputs */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="file"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    margin-top: 5px;
+    font-size: 15px;
+    transition: 0.2s;
+    background: #fdfdfd;
+}
+
+/* Hover / Focus */
+input:focus,
+textarea:focus {
+    border-color: #FFC800; /* Amarillo de tu estilo */
+    box-shadow: 0 0 5px rgba(255,200,0,0.5);
+    outline: none;
+}
+
+/* Textarea */
+textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Imagen del poster */
+img {
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+}
+
+/* Botón */
+button {
+    width: 100%;
+    background: #FFC800;
+    color: #222;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #d6a700;
+}

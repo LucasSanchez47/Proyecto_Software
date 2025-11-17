@@ -21,10 +21,12 @@ if (isset($_GET["id"])) {
 <head>
     <meta charset="UTF-8">
     <title><?= $editando ? "Editar" : "Nueva" ?> Película</title>
-    <link rel="stylesheet" href="Css/Principal.css">
+    <link rel="stylesheet" href="../Css/Form_peliculas.css">
 </head>
 
 <body>
+
+<div class="form-container">
 
 <h1><?= $editando ? "Editar" : "Nueva" ?> Película</h1>
 
@@ -57,6 +59,8 @@ if (isset($_GET["id"])) {
     <button type="submit">Guardar</button>
 
 </form>
+
+</div>
 
 </body>
 </html>

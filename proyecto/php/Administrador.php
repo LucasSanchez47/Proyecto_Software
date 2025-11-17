@@ -12,31 +12,34 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 1) {
 <head>
     <meta charset="UTF-8">
     <title>Panel del Administrador</title>
-    <link rel="stylesheet" href="Css/Administrador.css">
+    <link rel="stylesheet" href="../Css/Administrador.css">
 </head>
-<body>
-    <div>
-        <aside>
-            <div>
-                <img src="Imagenes/avatar.jpg" alt="Avatar del usuario" class="avatar">
-                <p> Bienvenido: </p><span><?= htmlspecialchars($_SESSION['nombre']); ?></span>
-                
+<body class="admin-body">
+    <div class="admin-container">
+
+        <aside class="admin-sidebar">
+            <div class="admin-user">
+                <img src="Imagenes/avatar.jpg" class="avatar">
+                <p>Bienvenido:</p>
+                <span><?= htmlspecialchars($_SESSION['nombre']); ?></span>
             </div>
-            <nav>
+
+            <nav class="admin-nav">
                 <ul>
-                    <li><a href="UsuarioGUI.php"> Administracion de Usuarios </a></li>
-                    <li><a href="CargoGUI.php"> Administracion de Cargos </a></li>
-                    <li><a href="ProductoGUI.php"> Administracion de Productos </a></li>
-                    <li><a href="PeliculasGUI.php">Administracion de Peliculas</a></li>
-                    <li><a href="Cerrar_Sesion.php">Cerrar sesión</a></li>
+                    <li><a href="UsuarioGUI.php">Administración de Usuarios</a></li>
+                    <li><a href="CargoGUI.php">Administración de Cargos</a></li>
+                    <li><a href="ProductoGUI.php">Administración de Productos</a></li>
+                    <li><a href="PeliculasGUI.php">Administración de Películas</a></li>
+                    <li><a href="Cerrar_Sesion.php" class="logout">Cerrar sesión</a></li>
                 </ul>
             </nav>
         </aside>
 
-        <main>
+        <main class="admin-main">
             <h1>Panel de Administración</h1>
             <p>Este es el panel de control para administradores.</p>
         </main>
+
     </div>
 </body>
 </html>

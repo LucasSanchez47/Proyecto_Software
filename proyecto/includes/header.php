@@ -6,11 +6,12 @@ if (session_status() === PHP_SESSION_NONE) {
 // Detectar si estamos dentro de /php/ o en raíz
 $rutaBase = (strpos($_SERVER['PHP_SELF'], '/php/') !== false) ? '../' : '';
 ?>
-
+<style>
+<?php include __DIR__ . '/../Css/Header.css'; ?>
+</style>
 <header>
     <div class="logo">
         <img src="<?= $rutaBase ?>img/MagicS.png" alt="Logo CineStar" />
-        <link rel="stylesheet" href="../Css/Header.css">
         <h1>MagicScreen</h1>
     </div>
 

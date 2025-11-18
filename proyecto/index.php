@@ -6,14 +6,22 @@ require_once 'php/Usuario_model.php';
 require_once 'php/Peliculas_model.php';
 
 $modelPeliculas = new PeliculaModel();
+
+$estrenos = $modelPeliculas->obtenerEstrenos(6);
+$preventas = $modelPeliculas->obtenerPreventas(6);
+$proximos = $modelPeliculas->obtenerProximos(6);
 $estrenos = $modelPeliculas->obtenerEstrenos(3); 
 ?>
 <!DOCTYPE html>
 <html lang="es">
+    <style>
+        <?php include __DIR__ . '/Css/Principal.css'; ?>
+    </style>
+
 <head>
     <meta charset="UTF-8">
     <title>MagicScreen - Tu cine favorito</title>
-    <link rel="stylesheet" href="Css/Principal.css">
+
     <link rel="icon" href="img/logof.png" type="image/x-iconn">
 </head>
 <body>
@@ -31,7 +39,7 @@ $estrenos = $modelPeliculas->obtenerEstrenos(3);
         </section>
 
         <section class="peliculas">
-            <h2> Estrenos de la Semana</h2>
+            <h2>Estrenos de la Semana</h2>
             <div class="grid-peliculas">
                 <?php foreach ($estrenos as $p): ?>
                     <div class="pelicula">
@@ -47,6 +55,42 @@ $estrenos = $modelPeliculas->obtenerEstrenos(3);
             </div>
 
         </section>
+
+        <section class="peliculas">
+            <h2>Preventa</h2>
+            <div class="grid-peliculas">
+                <?php foreach ($preventas as $p): ?>
+            <div class="pelicula">
+                <img src="img/<?= htmlspecialchars($p->getposter()) ?>" alt="Poster">
+                <h3><?= htmlspecialchars($p->gettitulo()) ?></h3>
+                <p><?= htmlspecialchars($p->getgenero()) ?> | <?= htmlspecialchars($p->getduracion()) ?> min</p>
+            </div>
+                <?php endforeach; ?>
+
+                <?php if (count($preventas) == 0): ?>
+                <p class="no-peliculas">No hay películas en preventa.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
+        <section class="peliculas">
+            <h2>Próximamente</h2>
+            <div class="grid-peliculas">
+                <?php foreach ($proximos as $p): ?>
+                <div class="pelicula">
+                    <img src="img/<?= htmlspecialchars($p->getposter()) ?>" alt="Poster">
+                    <h3><?= htmlspecialchars($p->gettitulo()) ?></h3>
+                    <p><?= htmlspecialchars($p->getgenero()) ?> | <?= htmlspecialchars($p->getduracion()) ?> min</p>
+                </div>
+                <?php endforeach; ?>
+
+                <?php if (count($proximos) == 0): ?>
+                    <p class="no-peliculas">No hay próximos estrenos.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
+
 
         <section class="promocion">
             <h2>Promociones</h2>

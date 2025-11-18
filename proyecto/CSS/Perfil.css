@@ -1,4 +1,4 @@
-/* --- Reset general como los otros CSS --- */
+/* --- Reset general --- */
 * {
     margin: 0;
     padding: 0;
@@ -6,11 +6,14 @@
     font-family: 'Segoe UI', sans-serif;
 }
 
+/* --- Fondo y alineación --- */
 body {
     background-color: #f5f5f5;
     display: flex;
     justify-content: center;
-    padding-top: 40px;
+    align-items: flex-start; /* Centrado desde arriba */
+    min-height: calc(100vh - 100px); /* Deja espacio para header y posibles margenes */
+    padding: 40px 0;
 }
 
 /* --- Contenedor principal del perfil --- */
@@ -21,6 +24,7 @@ body {
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     text-align: center;
+    margin-top: 30px; /* Evita solape con el header */
 }
 
 /* --- Título --- */
@@ -48,7 +52,7 @@ body {
     border: 3px solid #ccc;
 }
 
-/* --- Inputs organizados por filas (como en tu boceto) --- */
+/* --- Organización de campos --- */
 .fila {
     display: flex;
     justify-content: space-between;
@@ -76,7 +80,7 @@ body {
     background-color: #fafafa;
     margin-top: 5px;
     font-size: 1em;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 .campo input:focus,
@@ -85,7 +89,7 @@ body {
     border-color: #ffcc00;
 }
 
-/* --- Input de foto --- */
+/* --- Input de archivo --- */
 input[type="file"] {
     margin-top: 10px;
     margin-bottom: 20px;
@@ -102,11 +106,13 @@ input[type="file"] {
 .success {
     background-color: #d4ffd4;
     color: #1a7a1a;
+    border: 1px solid #8ed18e;
 }
 
 .error {
     background-color: #ffd4d4;
     color: #7a1a1a;
+    border: 1px solid #d18e8e;
 }
 
 /* --- Botón guardar --- */
@@ -121,11 +127,12 @@ input[type="file"] {
     font-size: 1em;
     cursor: pointer;
     font-weight: bold;
-    transition: 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .btn-guardar:hover {
-    background-color: #fff200;
+    background-color: #e6b800;
+    transform: scale(1.02);
 }
 
 /* --- Enlaces del pie --- */
@@ -134,7 +141,7 @@ input[type="file"] {
 }
 
 .links a {
-    color: #141414;
+    color: #0078ff;
     font-weight: bold;
     text-decoration: none;
 }

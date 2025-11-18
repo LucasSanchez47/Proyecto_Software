@@ -1,16 +1,24 @@
-/* --- Estilo general --- */
+/* --- Estilo general para el cuerpo --- */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
     background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-/* Contenedor de todo */
-.contenedor-peliculas {
+main {
+    flex-grow: 1;
+}
+
+/* Contenedor principal */
+.main-peliculas {
     width: 90%;
     max-width: 1200px;
     margin: 40px auto;
+    padding-bottom: 40px;
 }
 
 /* Título */
@@ -22,21 +30,22 @@ h1 {
 
 /* Botón agregar */
 .btn-agregar {
+    display: inline-block;
     background-color: #ffcc00;
     color: #141414;
     padding: 10px 18px;
-    border: none;
     border-radius: 8px;
     font-weight: bold;
-    cursor: pointer;
+    text-decoration: none;
     margin-bottom: 20px;
+    transition: background 0.3s;
 }
 
 .btn-agregar:hover {
     background-color: #ffe066;
 }
 
-/* --- Tabla --- */
+/* Tabla */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -46,94 +55,65 @@ table {
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
+th, td {
+    padding: 12px;
+}
+
 th {
     background-color: #141414;
     color: white;
-    padding: 12px;
-    text-align: left;
 }
 
 td {
-    padding: 12px;
     border-bottom: 1px solid #ddd;
+}
+
+/* Estado sin imagen */
+.no-img {
+    color: #888;
+    font-style: italic;
 }
 
 /* Imagen reducida */
 .poster-mini {
-    width: 70px;
-    height: 100px;
+    width: 60px;
+    height: 90px;
     object-fit: cover;
     border-radius: 6px;
 }
 
 /* Botones tabla */
+.btn-editar, .btn-eliminar {
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
 .btn-editar {
     background-color: #0078ff;
     color: white;
-    padding: 7px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    text-decoration: none;
+}
+
+.btn-editar:hover {
+    background-color: #005fcc;
 }
 
 .btn-eliminar {
     background-color: #b30000;
     color: white;
-    padding: 7px 12px;
-    border-radius: 6px;
-    margin-left: 6px;
-    text-decoration: none;
+    margin-left: 5px;
 }
 
 .btn-eliminar:hover {
     background-color: #e60000;
 }
 
-/* --- Formulario --- */
-.formulario {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    margin-top: 25px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-}
-
-.formulario label {
-    font-weight: bold;
-    display: block;
-    margin-top: 10px;
-}
-
-.formulario input,
-.formulario select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 6px;
-    margin-top: 5px;
-    border: 1px solid #bbb;
-}
-
-/* Botones del formulario */
-.btn-guardar {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    margin-right: 10px;
-    cursor: pointer;
-}
-
-.btn-cancelar {
-    background-color: #555;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.oculto {
-    display: none;
+/* No registros */
+.no-registros {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #555;
 }

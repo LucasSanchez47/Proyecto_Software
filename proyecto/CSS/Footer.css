@@ -1,13 +1,12 @@
-/* Mantiene tu estilo */
 footer {
     background-color: #141414;
     color: #aaa;
     text-align: center;
     padding: 25px 0;
     font-size: 0.9em;
+    margin-top: 20px;
 }
 
-/* === GRID 1 fila - 4 columnas === */
 .footer-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -30,4 +29,18 @@ footer {
 .copy {
     font-size: 0.85em;
     color: #777;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
 }

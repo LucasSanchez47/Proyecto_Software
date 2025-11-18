@@ -12,6 +12,9 @@ $p->setduracion($_POST["duracion"]);
 $p->setgenero($_POST["genero"]);
 $p->setestreno($_POST["estreno"]);
 
+// NUEVO: guardar estado
+$p->setidestado($_POST["id_estado"]); // <<=== AGREGADO
+
 // manejar imagen
 $archivo = $_FILES["poster"]["name"];
 

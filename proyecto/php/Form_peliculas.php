@@ -1,10 +1,15 @@
 <?php
 require_once "Peliculas_model.php";
+require_once "Estado_model.php"; // << AGREGADO
 
 $model = new PeliculaModel();
+$modelEstado = new EstadoModel(); // << AGREGADO
 
 $pelicula = new Pelicula();
 $editando = false;
+
+// Lista de estados disponibles desde la DB
+$estados = $modelEstado->listar(); // << AGREGADO
 
 if (isset($_GET["id"])) {
     $editando = true;
@@ -50,6 +55,21 @@ if (isset($_GET["id"])) {
     <label>Fecha estreno</label>
     <input type="date" name="estreno" value="<?= $pelicula->getestreno() ?>" required>
 
+
+    <!-- SELECT ESTADO -->
+    <label>Estado</label>
+    <select name="id_estado" required>
+        <option value="">Seleccionar estado...</option>
+        <?php foreach ($estados as $estado) { ?>
+            <option value="<?= $estado->getidestado() ?>"
+                <?= $editando && $estado->getidestado() == $pelicula->getidestado() ? "selected" : "" ?>>
+                <?= $estado->getnombre() ?>
+            </option>
+        <?php } ?>
+    </select>
+
+
+    <!-- POSTER -->
     <label>Poster</label>
     <input type="file" name="poster" accept="image/*">
 

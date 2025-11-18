@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="../Css/Footer.css">
+
+<style>
+<?php include __DIR__ . '/../Css/Footer.css'; ?>
+</style>
 
 <footer>
     <div class="footer-grid">

@@ -7,6 +7,7 @@ class Pelicula {
     private $genero;
     private $poster;  // ruta imagen
     private $estreno; // fecha YYYY-mm-dd
+    private $id_estado;
 
     // --- Getters y setters ---
     public function getidpelicula() { return $this->idPelicula; }
@@ -29,5 +30,9 @@ class Pelicula {
 
     public function getestreno() { return $this->estreno; }
     public function setestreno($v) { $this->estreno = $v; }
+
+    public function getidestado() {return $this->id_estado;}
+
+public function setidestado($id_estado) {$this->id_estado = $id_estado;}
 }
 ?>

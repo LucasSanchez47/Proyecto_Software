@@ -111,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
     <meta charset="UTF-8">
     <title>Gestión de Usuarios</title>
     <link rel="stylesheet" href="Css/UsuarioGUI.css">
+    <link rel="icon" href="../img/logof.png" type="image/x-iconn">
 </head>
 <body>
     <h1>Administración de Usuarios</h1>

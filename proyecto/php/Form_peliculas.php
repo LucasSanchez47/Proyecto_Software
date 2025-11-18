@@ -22,6 +22,7 @@ if (isset($_GET["id"])) {
     <meta charset="UTF-8">
     <title><?= $editando ? "Editar" : "Nueva" ?> Película</title>
     <link rel="stylesheet" href="../Css/Form_peliculas.css">
+    <link rel="icon" href="../img/logof.png" type="image/x-iconn">
 </head>
 
 <body>

@@ -82,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Mi Perfil</title>
     <link rel="stylesheet" href="../Css/Perfil.css">
+    <link rel="icon" href="../img/logof.png" type="image/x-iconn">
 </head>
 <body>
     <div class="perfil-container">

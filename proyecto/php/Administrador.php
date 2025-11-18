@@ -13,6 +13,7 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 1) {
     <meta charset="UTF-8">
     <title>Panel del Administrador</title>
     <link rel="stylesheet" href="../Css/Administrador.css">
+    <link rel="icon" href="../img/logof.png" type="image/x-iconn">
 </head>
 <body class="admin-body">
     <div class="admin-container">

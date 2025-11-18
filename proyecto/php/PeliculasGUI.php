@@ -11,8 +11,11 @@ $lista = $model->listar();
     <meta charset="UTF-8">
     <title>Administrar Películas</title>
     <link rel="stylesheet" href="..\CSS\Peliculas.css">
+    <link rel="icon" href="../img/logof.png" type="image/x-iconn">
 </head>
 <body>
+
+    <?php include "../includes/Header.php"; ?>
 
 <div class="contenedor-peliculas">
 

@@ -16,34 +16,37 @@ class UsuarioModel {
     // LISTAR
     // ===========================
     public function Listar(): array {
-        try {
-            $result = [];
-            $stm = $this->pdo->prepare("
-                SELECT u.ID_usuario, u.Nombre, u.Apellido, u.Direccion, 
-                        u.Num_telefono, u.Correo, c.Cargo
-                FROM usuarios u
-                INNER JOIN cargos c ON u.ID_cargo = c.ID_cargo
-            ");
-            $stm->execute();
+    try {
+        $result = [];
+        $stm = $this->pdo->prepare("
+            SELECT u.ID_usuario, u.Nombre, u.Apellido, u.Direccion, 
+                   u.Num_telefono, u.Correo, u.Foto_perfil, c.Cargo
+            FROM usuarios u
+            INNER JOIN cargos c ON u.ID_cargo = c.ID_cargo
+        ");
+        $stm->execute();
 
-            foreach ($stm->fetchAll(PDO::FETCH_OBJ) as $r) {
-                $usuario = new Usuario();
-                $usuario->setidusuario($r->ID_usuario);
-                $usuario->setnombre($r->Nombre);
-                $usuario->setapellido($r->Apellido);
-                $usuario->setdireccion($r->Direccion);
-                $usuario->settelefono($r->Num_telefono);
-                $usuario->setcorreo($r->Correo);
-                $usuario->setcargo($r->Cargo);
+        foreach ($stm->fetchAll(PDO::FETCH_OBJ) as $r) {
+            $usuario = new Usuario();
+            $usuario->setidusuario($r->ID_usuario);
+            $usuario->setnombre($r->Nombre);
+            $usuario->setapellido($r->Apellido);
+            $usuario->setdireccion($r->Direccion);
+            $usuario->settelefono($r->Num_telefono);
+            $usuario->setcorreo($r->Correo);
+            $usuario->setcargo($r->Cargo);
+            $usuario->setfotoperfil($r->Foto_perfil);  // ← FALTABA ESTO
 
-                $result[] = $usuario;
-            }
-            return $result;
-
-        } catch (Exception $e) {
-            die("Error al listar usuarios: " . $e->getMessage());
+            $result[] = $usuario;
         }
+
+        return $result;
+
+    } catch (Exception $e) {
+        die("Error al listar usuarios: " . $e->getMessage());
     }
+}
+
 
     // ===========================
     // OBTENER UNO

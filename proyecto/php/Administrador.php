@@ -31,8 +31,7 @@ if (!isset($_SESSION['idUsuario']) || $_SESSION['idCargo'] != 1) {
             <nav class="admin-nav">
                 <ul>
                     <li><a href="UsuarioGUI.php">Administración de Usuarios</a></li>
-                    <li><a href="CargoGUI.php">Administración de Cargos</a></li>
-                    <li><a href="ProductoGUI.php">Administración de Productos</a></li>
+                    <li><a href="ProductosGUI.php">Administración de Productos</a></li>
                     <li><a href="PeliculasGUI.php">Administración de Películas</a></li>
                     <li><a href="Cerrar_Sesion.php" class="logout">Cerrar sesión</a></li>
                 </ul>

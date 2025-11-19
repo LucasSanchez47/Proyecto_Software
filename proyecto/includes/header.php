@@ -18,8 +18,8 @@ $rutaBase = (strpos($_SERVER['PHP_SELF'], '/php/') !== false) ? '../' : '';
     <nav>
         <ul>
             <li><a href="<?= $rutaBase ?>index.php">Inicio</a></li>
-            <li><a href="<?= $rutaBase ?>cartelera.php">Cartelera</a></li>
-            <li><a href="<?= $rutaBase ?>promociones.php">Promociones</a></li>
+            <li><a href="<?= $rutaBase ?>php/EntradasGUI.php">Entradas</a></li>
+            <li><a href="<?= $rutaBase ?>php/Productos_publico.php">Pochoclera</a></li>
             <li><a href="<?= $rutaBase ?>php/contacto.php">Contacto</a></li>
 
             <?php if(isset($_SESSION['nombre'])): ?>

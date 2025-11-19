@@ -1,0 +1,142 @@
+/* --- Estilo general para el cuerpo --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
+/* Contenedor principal */
+.main-productos {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding-bottom: 40px;
+}
+
+/* Título */
+.main-productos h1 {
+    font-size: 32px;
+    color: #141414;
+    margin-bottom: 20px;
+}
+
+/* Botón agregar */
+.btn-agregar {
+    display: inline-block;
+    background-color: #ffcc00;
+    color: #141414;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+    transition: background 0.3s;
+}
+
+.btn-agregar:hover {
+    background-color: #ffe066;
+}
+
+/* Tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+th, td {
+    padding: 12px;
+}
+
+th {
+    background-color: #141414;
+    color: white;
+    text-align: left;
+}
+
+td {
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+}
+
+/* Imagen */
+.img-producto {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Sin imagen */
+.no-img {
+    color: #888;
+    font-style: italic;
+}
+
+/* Estado */
+.estado-activo {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #e6f9e8;
+    color: #1d7a2e;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.estado-inactivo {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #fdeaea;
+    color: #be1d1d;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Botones tabla */
+.btn-editar, .btn-eliminar {
+    padding: 7px 12px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-editar {
+    background-color: #0078ff;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #005fcc;
+}
+
+.btn-eliminar {
+    background-color: #b30000;
+    color: white;
+    margin-left: 5px;
+}
+
+.btn-eliminar:hover {
+    background-color: #e60000;
+}
+
+/* No registros */
+.no-registros {
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+    color: #555;
+}

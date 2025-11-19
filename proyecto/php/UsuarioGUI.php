@@ -1,8 +1,8 @@
 <?php
 require_once 'Usuario.php';
-require_once 'Usuario.model.php';
+require_once 'Usuario_model.php';
 require_once 'Cargo.php';
-require_once 'Cargo.model.php';
+require_once 'Cargo_model.php';
 
 session_start();
 
@@ -12,16 +12,16 @@ if (!isset($_SESSION['idUsuario'])) {
     exit();
 }
 
-$usuario = new Usuario();
 $usuariomodel = new UsuarioModel();
-$cargo = new Cargo();
 $cargomodel = new CargoModel();
+
+// objeto usuario vacío por defecto (para el formulario)
+$usuario = new Usuario();
 
 // Manejo del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
     $operacion = $_POST['operacion'];
 
-    // Entradas básicas con limpieza
     $idUsuario = filter_input(INPUT_POST, 'idUsuario', FILTER_VALIDATE_INT);
     $nombre = trim($_POST['Nombre'] ?? '');
     $apellido = trim($_POST['Apellido'] ?? '');
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
     $correo = filter_input(INPUT_POST, 'Correo', FILTER_VALIDATE_EMAIL);
     $clave = $_POST['Clave'] ?? '';
     $idCargo = filter_input(INPUT_POST, 'Cargo', FILTER_VALIDATE_INT);
+    $telefono = trim($_POST['Num_telefono'] ?? '');
 
     switch ($operacion) {
         case 'actualizar':
@@ -38,21 +39,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
             $usuario->setdireccion($direccion);
             $usuario->setcorreo($correo);
             $usuario->setidcargo($idCargo);
+            $usuario->settelefono($telefono);
             if (!empty($clave)) {
                 $usuario->setclave(password_hash($clave, PASSWORD_DEFAULT));
             }
-            // Manejo de la imagen subida
+            // Manejo imagen
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpPath = $_FILES['foto']['tmp_name'];
                 $fileName = $_FILES['foto']['name'];
-                $fileNameCmps = explode(".", $fileName);
-                $fileExtension = strtolower(end($fileNameCmps));
+                $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
                 $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
                 if (in_array($fileExtension, $allowedExtensions)) {
                     $newFileName = uniqid() . '.' . $fileExtension;
                     $dest_path = 'uploads/perfiles/' . $newFileName;
-
                     if (move_uploaded_file($fileTmpPath, $dest_path)) {
                         $usuario->setfotoPerfil($newFileName);
                     }
@@ -69,18 +68,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
             $usuario->setcorreo($correo);
             $usuario->setidcargo($idCargo);
             $usuario->setclave(password_hash($clave, PASSWORD_DEFAULT));
-            //  
+            $usuario->settelefono($telefono);
             if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
                 $fileTmpPath = $_FILES['foto']['tmp_name'];
                 $fileName = $_FILES['foto']['name'];
-                $fileNameCmps = explode(".", $fileName);
-                $fileExtension = strtolower(end($fileNameCmps));
+                $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
                 $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
                 if (in_array($fileExtension, $allowedExtensions)) {
                     $newFileName = uniqid() . '.' . $fileExtension;
                     $dest_path = 'uploads/perfiles/' . $newFileName;
-
                     if (move_uploaded_file($fileTmpPath, $dest_path)) {
                         $usuario->setfotoPerfil($newFileName);
                     }
@@ -92,73 +88,90 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
 
         case 'eliminar':
             $idEliminar = filter_input(INPUT_POST, 'idusuario', FILTER_VALIDATE_INT);
-            $usuariomodel->Eliminar($idEliminar);
+            if ($idEliminar) {
+                $usuariomodel->Eliminar($idEliminar);
+            }
             header('Location: UsuarioGUI.php');
             exit();
 
         case 'editar':
             $idEditar = filter_input(INPUT_POST, 'idusuario', FILTER_VALIDATE_INT);
-            $usuario = $usuariomodel->Obtener($idEditar);
+            if ($idEditar) {
+                $usuario = $usuariomodel->Obtener($idEditar);
+                if (!$usuario) {
+                    // Si no existe el usuario, aseguramos que $usuario sea objeto vacío para el formulario
+                    $usuario = new Usuario();
+                }
+            }
             break;
     }
 }
+
+// === IMPORTANT: cargamos la lista de usuarios para el listado ===
+$usuarios = $usuariomodel->Listar(); // <- asegura que $usuarios no sea null
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Usuarios</title>
-    <link rel="stylesheet" href="Css/UsuarioGUI.css">
-    <link rel="icon" href="../img/logof.png" type="image/x-iconn">
+    <link rel="stylesheet" href="../Css/Usuario.css">
 </head>
 <body>
+
+    <?php include "../includes/Header.php"; ?>
+
+<div class="contenedor-usuarios">
     <h1>Administración de Usuarios</h1>
 
-    <!-- FORMULARIO ADMINISTRACION USUARIOS -->
-     <form action="UsuarioGUI.php" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="operacion" value="<?= $usuario->getidusuario() > 0 ? 'actualizar' : 'registrar'; ?>">
-        <input type="hidden" name="idUsuario" value="<?= $usuario->getidusuario(); ?>">
+    <!-- FORMULARIO -->
+    <form action="UsuarioGUI.php" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="operacion" value="<?= ($usuario->getidusuario() > 0) ? 'actualizar' : 'registrar'; ?>">
+    <input type="hidden" name="idUsuario" value="<?= htmlspecialchars($usuario->getidusuario()); ?>">
 
-        <label>Nombre:</label>
-        <input type="text" name="Nombre" required value="<?= htmlspecialchars($usuario->getnombre() ?? ''); ?>"><br>
+    <label>Nombre:</label>
+    <input type="text" name="Nombre" required value="<?= htmlspecialchars($usuario->getnombre() ?? ''); ?>">
 
-        <label>Apellido:</label>
-        <input type="text" name="Apellido" required value="<?= htmlspecialchars($usuario->getapellido() ?? ''); ?>"><br>
+    <label>Apellido:</label>
+    <input type="text" name="Apellido" required value="<?= htmlspecialchars($usuario->getapellido() ?? ''); ?>">
 
-        <label>Dirección:</label>
-        <input type="text" name="Direccion" required value="<?= htmlspecialchars($usuario->getdireccion() ?? ''); ?>"><br>
+    <label>Dirección:</label>
+    <input type="text" name="Direccion" value="<?= htmlspecialchars($usuario->getdireccion() ?? ''); ?>">
 
-        <label>Correo:</label>
-        <input type="email" name="Correo" required value="<?= htmlspecialchars($usuario->getcorreo() ?? ''); ?>"><br>
+    <label>Teléfono:</label>
+    <input type="text" name="Num_telefono" required 
+        value="<?= htmlspecialchars($usuario->gettelefono() ?? ''); ?>">
 
-        <label>Clave:</label>
-        <input type="password" name="Clave" <?= $usuario->getidusuario() < 1 ? 'required' : ''; ?>><br>
+    <label>Correo:</label>
+    <input type="email" name="Correo" required value="<?= htmlspecialchars($usuario->getcorreo() ?? ''); ?>">
 
-        <label>Cargo:</label>
-        <select name="Cargo" required>
-            <option value="">Seleccione...</option>
-            <?php
-            $cargos = ($_SESSION['idCargo'] < 3) ? $cargomodel->ListarTodos() : $cargomodel->ListarRestringidos();
-            foreach ($cargos as $r):
-                $selected = $usuario->getidcargo() == $r->getidCargo() ? 'selected' : '';
-                echo "<option value='{$r->getidCargo()}' $selected>" . htmlspecialchars($r->getCargo()) . "</option>";
-            endforeach;
-            ?>
-        </select><br><br>
+    <label>Clave:</label>
+    <input type="password" name="Clave" <?= ($usuario->getidusuario() < 1) ? 'required' : ''; ?>>
 
-        <label>Foto de perfil:</label>
-        <input type="file" name="foto" accept=".jpg,.jpeg,.png,.gif"><br>
+    <label>Cargo:</label>
+    <select name="Cargo" required>
+        <option value="">Seleccione...</option>
+        <?php
+        $cargos = ($_SESSION['idCargo'] < 3) ? $cargomodel->ListarTodos() : $cargomodel->ListarRestringidos();
+        foreach ($cargos as $r):
+            $selected = ($usuario->getidcargo() == $r->getidCargo()) ? 'selected' : '';
+            echo "<option value='" . htmlspecialchars($r->getidCargo()) . "' $selected>" . htmlspecialchars($r->getCargo()) . "</option>";
+        endforeach;
+        ?>
+    </select>
 
-        <button type="submit">
-            <?= $usuario->getidusuario() > 0 ? 'Actualizar' : 'Registrar'; ?>
-        </button>
-    </form>
+    <label>Foto de perfil:</label>
+    <input type="file" name="foto" accept=".jpg,.jpeg,.png,.gif">
 
-    <!-- Tabla de usuarios -->
+    <button type="submit"><?= ($usuario->getidusuario() > 0) ? 'Actualizar' : 'Registrar'; ?></button>
+</form>
+
+    <!-- TABLA -->
     <h2>Listado de Usuarios</h2>
-    <table border="1">
+
+    <?php if (!empty($usuarios) && is_array($usuarios) || is_object($usuarios)): ?>
+    <table>
         <tr>
             <th>Foto</th>
             <th>Nombre</th>
@@ -168,13 +181,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
             <th>Cargo</th>
             <th>Acciones</th>
         </tr>
-        <?php foreach ($usuariomodel->Listar() as $r): ?>
+
+        <?php foreach ($usuarios as $r): ?>
             <tr>
                 <td>
                     <?php if ($r->getfotoPerfil()): ?>
-                    <img src="uploads/perfiles/<?= htmlspecialchars($r->getfotoPerfil()); ?>" alt="Foto" width="60">
+                        <img src="uploads/perfiles/<?= htmlspecialchars($r->getfotoPerfil()); ?>" alt="Foto" width="60">
                     <?php else: ?>
-                    <span>Sin foto</span>
+                        <span class="sin-foto">Sin foto</span>
                     <?php endif; ?>
                 </td>
                 <td><?= htmlspecialchars($r->getnombre()); ?></td>
@@ -185,18 +199,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['operacion'])) {
                 <td>
                     <form method="post" style="display:inline;">
                         <input type="hidden" name="operacion" value="editar">
-                        <input type="hidden" name="idusuario" value="<?= $r->getidusuario(); ?>">
-                        <button type="submit">Editar</button>
+                        <input type="hidden" name="idusuario" value="<?= htmlspecialchars($r->getidusuario()); ?>">
+                        <button type="submit" class="btn-editar">Editar</button>
                     </form>
+
                     <form method="post" style="display:inline;" onsubmit="return confirm('¿Desea eliminar este usuario?');">
                         <input type="hidden" name="operacion" value="eliminar">
-                        <input type="hidden" name="idusuario" value="<?= $r->getidusuario(); ?>">
-                        <button type="submit">Eliminar</button>
+                        <input type="hidden" name="idusuario" value="<?= htmlspecialchars($r->getidusuario()); ?>">
+                        <button type="submit" class="btn-eliminar">Eliminar</button>
                     </form>
                 </td>
             </tr>
         <?php endforeach; ?>
     </table>
+    <?php else: ?>
+        <p class="no-registros">No hay usuarios registrados.</p>
+    <?php endif; ?>
+</div>
 </body>
 </html>
-

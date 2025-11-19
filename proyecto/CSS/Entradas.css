@@ -1,0 +1,227 @@
+/* boletos.css
+   Estilos para mapa de asientos / compra de entradas
+   - Paleta: verdes (libre), rojos (ocupado), amarillo (seleccionado)
+   - Diseñado para integrarse con EntradasGUI.php
+*/
+
+/* ===== Reset / base ===== */
+* { box-sizing: border-box; }
+html,body { height: 100%; }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(180deg, #f6f9fc 0%, #ffffff 100%);
+  color: #222;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+
+}
+
+/* ===== Contenedor principal ===== */
+.map-wrap {
+  max-width: 1100px;
+  margin: 18px auto;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 18px 20px;
+  box-shadow: 0 6px 28px rgba(12,20,30,0.06);
+  border: 1px solid rgba(12,20,30,0.04);
+}
+
+/* Títulos */
+.map-wrap h1 {
+  font-size: 20px;
+  margin: 0 0 14px 0;
+  letter-spacing: -0.2px;
+}
+
+/* Controls: función + precio */
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.controls label { font-weight: 600; margin-right: 6px; }
+.controls select {
+  min-width: 260px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e1e7ee;
+  background: #fff;
+  outline: none;
+  transition: box-shadow .12s ease, border-color .12s ease;
+}
+.controls select:focus { box-shadow: 0 6px 18px rgba(58,123,213,0.06); border-color: #cfe3ff; }
+.price-box {
+  margin-left: auto;
+  font-weight: 700;
+  color: #0a5bdc;
+  min-width: 120px;
+  text-align: right;
+}
+
+/* ===== Seat map ===== */
+#seat-map {
+  background: linear-gradient(180deg, #fbfdff, #ffffff);
+  padding: 14px;
+  border-radius: 10px;
+  min-height: 140px;
+  display: block;
+  transition: min-height .15s ease;
+  border: 1px dashed rgba(34,34,34,0.04);
+}
+
+/* Row container */
+.seat-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+/* Label of row (A, B, ...) */
+.row-label {
+  width: 34px;
+  text-align: center;
+  font-weight: 700;
+  color: #444;
+  user-select: none;
+}
+
+/* Seat basic look */
+.seat {
+  width: 46px;
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 2px 6px rgba(20,40,60,0.04), inset 0 -6px 14px rgba(255,255,255,0.02);
+  color: #1b2b18;
+  background: #f3fff3;
+}
+
+/* Seat states */
+.seat.available {
+  background: linear-gradient(180deg,#e6f7e6,#dff3df);
+  border-color: rgba(52,168,83,0.18);
+}
+.seat.occupied {
+  background: linear-gradient(180deg,#fbecec,#f5d6d6);
+  border-color: rgba(219,68,55,0.18);
+  color: #6b1a1a;
+  cursor: not-allowed;
+  opacity: 0.95;
+  transform: none;
+}
+.seat.selected {
+  background: linear-gradient(180deg,#fff1c8,#ffd66d);
+  border-color: rgba(255,183,0,0.22);
+  color: #3c2b00;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(255,186,46,0.12);
+}
+
+/* Hover */
+.seat.available:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 10px 20px rgba(18,94,66,0.06); }
+
+/* Responsive seat size */
+@media (max-width: 880px) {
+  .seat { width: 40px; height: 40px; font-size: 13px; }
+  .row-label { width: 28px; font-size: 13px; }
+}
+@media (max-width: 520px) {
+  .seat { width: 34px; height: 34px; font-size: 12px; }
+  .controls select { min-width: 180px; }
+  .price-box { font-size: 14px; }
+}
+
+/* ===== Legend and info ===== */
+.legend {
+  display:flex;
+  gap:14px;
+  align-items:center;
+  margin-top:12px;
+  flex-wrap:wrap;
+}
+.legend span { display:flex; gap:8px; align-items:center; font-size:14px; color:#444; }
+.legend .box { width:18px; height:18px; border-radius:4px; display:inline-block; border:1px solid rgba(0,0,0,0.04); }
+
+/* Price and selected info */
+#selectedInfo {
+  margin-left: auto;
+  font-weight: 700;
+  color: #102a43;
+}
+
+/* ===== Buttons ===== */
+button#comprarBtn {
+  margin-top: 14px;
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(180deg,#0a66ff,#084ec9);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 28px rgba(8,78,201,0.12);
+  transition: transform .08s ease, box-shadow .12s ease, opacity .12s ease;
+}
+button#comprarBtn[disabled] {
+  opacity: 0.56;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+button#comprarBtn:active { transform: translateY(1px); }
+
+/* ===== Messages ===== */
+.mensaje, .error {
+  margin-top: 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  display: none;
+}
+.mensaje { background: #e9f9ef; color: #0a6a2b; border: 1px solid rgba(10,106,43,0.08); }
+.error { background: #fff5f5; color: #7a1c1c; border: 1px solid rgba(219,68,55,0.08); }
+
+/* ===== Small helpers ===== */
+.small { font-size: 13px; color: #666; }
+.center { text-align:center; }
+
+/* ===== Accessibility focus ===== */
+.seat:focus { outline: 3px solid rgba(10,86,255,0.12); outline-offset: 2px; }
+
+/* ===== Screen (decorative) ===== */
+.screen {
+  width: 70%;
+  height: 12px;
+  margin: 16px auto 22px auto;
+  border-radius: 10px;
+  background: linear-gradient(180deg,#e5eefb,#ffffff);
+  box-shadow: inset 0 -4px 10px rgba(0,0,0,0.02);
+}
+
+/* ===== Footer small text ===== */
+.map-wrap .footer-note {
+  margin-top: 14px;
+  font-size: 13px;
+  color: #666;
+}
+
+/* OPTIONAL: seat label smaller when many seats */
+.compact .seat { width:36px; height:36px; font-size:12px; }
+
+/* ===== Table/list fallback ===== */
+@media (max-width:420px) {
+  .controls { flex-direction:column; align-items:stretch; gap:8px; }
+  .price-box { text-align:left; margin-left:0; }
+}

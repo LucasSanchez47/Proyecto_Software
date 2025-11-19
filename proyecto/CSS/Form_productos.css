@@ -1,0 +1,125 @@
+/* === Reset === */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* === Fondo global (sin flex, para no romper header/footer) === */
+body {
+    background-color: #f5f5f5;
+}
+
+/* === Contenedor que centra el contenido === */
+.contenedor-pagina {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0;
+}
+
+/* === Tarjeta del formulario === */
+.main-productos {
+    background: #ffffff;
+    width: 600px;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+}
+
+/* === Título === */
+.main-productos h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    color: #222;
+}
+
+/* === Form === */
+.formulario {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Label */
+.formulario label {
+    margin-top: 12px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Inputs */
+.formulario input[type="text"],
+.formulario input[type="number"],
+.formulario input[type="file"],
+.formulario select,
+.formulario textarea {
+    padding: 10px;
+    border: 2px solid #ddd;
+    background: #fafafa;
+    font-size: 15px;
+    border-radius: 10px;
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+/* Focus */
+.formulario input:focus,
+.formulario select:focus,
+.formulario textarea:focus {
+    border-color: #FFC800;
+    box-shadow: 0 0 6px rgba(255,200,0,0.5);
+    outline: none;
+}
+
+/* Textarea */
+.formulario textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+/* Imagen previa */
+.img-previa {
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 2px solid #ddd;
+    width: 130px;
+}
+
+/* Botón guardar */
+.btn-guardar {
+    margin-top: 20px;
+    padding: 12px;
+    background: #FFC800;
+    color: #222;
+    font-size: 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn-guardar:hover {
+    background: #d6a700;
+}
+
+/* Botón cancelar */
+.btn-cancelar {
+    text-align: center;
+    display: block;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: #ccc;
+    color: #222;
+    text-decoration: none;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+.btn-cancelar:hover {
+    background: #b3b3b3;
+}

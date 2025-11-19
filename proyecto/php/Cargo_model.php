@@ -19,7 +19,7 @@ class CargoModel {
 
             foreach ($stm->fetchAll(PDO::FETCH_OBJ) as $r) {
                 $cargo = new Cargo();
-                $cargo->setidCargo($r->idCargo);
+                $cargo->setidCargo($r->ID_cargo);
                 $cargo->setCargo($r->Cargo);
                 $result[] = $cargo;
             }
@@ -34,12 +34,12 @@ class CargoModel {
     public function ListarRestringidos(): array {
         try {
             $result = [];
-            $stm = $this->pdo->prepare("SELECT * FROM cargos WHERE idCargo >= 2");
+            $stm = $this->pdo->prepare("SELECT * FROM cargos WHERE ID_cargo >= 2");
             $stm->execute();
 
             foreach ($stm->fetchAll(PDO::FETCH_OBJ) as $r) {
                 $cargo = new Cargo();
-                $cargo->setidCargo($r->idCargo);
+                $cargo->setidCargo($r->ID_cargo);
                 $cargo->setCargo($r->Cargo);
                 $result[] = $cargo;
             }
@@ -51,15 +51,15 @@ class CargoModel {
     }
 
     // Obtener un cargo por ID (opcional)
-    public function Obtener(int $idCargo): ?Cargo {
+    public function Obtener(int $ID_cargo): ?Cargo {
         try {
-            $stm = $this->pdo->prepare("SELECT * FROM cargos WHERE idCargo = ?");
-            $stm->execute([$idCargo]);
+            $stm = $this->pdo->prepare("SELECT * FROM cargos WHERE ID_cargo = ?");
+            $stm->execute([$ID_cargo]);
             $r = $stm->fetch(PDO::FETCH_OBJ);
 
             if ($r) {
                 $cargo = new Cargo();
-                $cargo->setidCargo($r->idCargo);
+                $cargo->setidCargo($r->ID_cargo);
                 $cargo->setCargo($r->Cargo);
                 return $cargo;
             }

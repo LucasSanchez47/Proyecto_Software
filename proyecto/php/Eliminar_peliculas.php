@@ -1,10 +1,10 @@
 <?php
 require_once "Peliculas_model.php";
 
-$id = $_GET["id"];
+$idproducto = $_GET["idproducto"];
 
 $model = new PeliculaModel();
-$model->eliminar($id);
+$model->eliminar($idproducto);
 
 header("Location: PeliculasGUI.php");
 ?>
